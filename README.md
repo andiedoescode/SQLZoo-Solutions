@@ -2,7 +2,7 @@
 
 Solutions to the [SQLZoo Tutorials](https://www.sqlzoo.net/wiki/SQL_Tutorial).
 
-##Sections
+## Sections
 0. SELECT basics
 1. SELECT name
 2. SELECT from World
