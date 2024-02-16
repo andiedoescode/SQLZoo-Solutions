@@ -12,7 +12,7 @@ Solutions to the [SQLZoo Tutorials](https://www.sqlzoo.net/wiki/SQL_Tutorial).
 6. JOIN
 7. More JOIN
 8. Using Null
-8+. Numeric Examples
-9-. Window function
-9+. COVID 19 Example
+   - 8+. Numeric Examples
 9. Self join
+    - 9-. Window function
+    - 9+. COVID 19 Example
