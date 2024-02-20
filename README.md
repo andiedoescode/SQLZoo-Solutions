@@ -420,6 +420,7 @@ AND population > 40000000
 Table of Nobel prize winners: nobel(yr, subject, winner)
 
 1. Display Nobel prizes for 1950.
+
 ```sql
 SELECT yr, subject, winner
 FROM nobel
@@ -427,6 +428,7 @@ WHERE yr = 1950;
 ```
 
 2. Show who won the 1962 prize for literature.
+
 ```sql
 SELECT winner
 FROM nobel
@@ -435,6 +437,7 @@ AND subject = 'literature';
 ```
 
 3. Show the year and subject that won 'Albert Einstein' his prize.
+
 ```sql
 SELECT yr, subject
 FROM nobel
@@ -442,6 +445,7 @@ WHERE winner = 'Albert Einstein';
 ```
 
 4. Give the name of the 'peace' winners since the year 2000, including 2000.
+
 ```sql
 SELECT winner
 FROM nobel
@@ -450,6 +454,7 @@ AND subject = 'peace';
 ```
 
 5. Show all details (yr, subject, winner) of the literature prize winners for 1980 to 1989 inclusive.
+
 ```sql
 SELECT yr, subject, winner
 FROM nobel
@@ -458,6 +463,7 @@ AND yr BETWEEN 1980 AND 1989;
 ```
 
 6. Show all details of the presidential winners: Theodore Roosevelt, Thomas Woodrow Wilson, Jimmy Carter, Barack Obama.
+
 ```sql
 SELECT * FROM nobel
 WHERE subject = 'peace'
@@ -468,6 +474,7 @@ AND winner IN ('Theodore Roosevelt',
 ```
 
 7. Show the winners with first name John.
+
 ```sql
 SELECT winner
 FROM nobel
@@ -475,6 +482,7 @@ WHERE winner LIKE 'John%';
 ```
 
 8. Show the year, subject, and name of physics winners for 1980 together with the chemistry winners for 1984.
+
 ```sql
 SELECT yr, subject, winner
 FROM nobel
@@ -482,17 +490,19 @@ WHERE (yr = 1980
 	AND subject = 'physics')
 	OR (yr = 1984
 	AND subject = 'chemistry');
-   ```
+```
 
 9. Show the year, subject, and name of winners for 1980 excluding chemistry and medicine.
+
 ```sql
 SELECT yr, subject, winner
 FROM nobel
 WHERE yr = 1980
 	AND subject NOT IN ('chemistry', 'medicine');
-   ```
+```
 
 10. Show year, subject, and name of people who won a 'Medicine' prize in an early year (before 1910, not including 1910) together with winners of a 'Literature' prize in a later year (after 2004, including 2004).
+
 ```sql
 SELECT yr, subject, winner
 FROM nobel
@@ -500,9 +510,10 @@ WHERE (yr < 1910
 	AND subject = 'medicine')
 	OR (yr >= 2004
 	AND subject = 'literature');
-   ```
+```
 
 11. Find all details of the prize won by PETER GRÜNBERG.
+
 ```sql
 SELECT *
 FROM nobel
@@ -510,6 +521,7 @@ WHERE winner = 'PETER GRÜNBERG';
 ```
 
 12. Find all details of the prize won by EUGENE O'NEILL.
+
 ```sql
 SELECT *
 FROM nobel
@@ -517,6 +529,7 @@ WHERE winner = "EUGENE O'NEILL";
 ```
 
 13. List the winners, year and subject where the winner starts with Sir. Show the the most recent first, then by name order.
+
 ```sql
 SELECT winner, yr, subject
 FROM nobel
@@ -525,6 +538,7 @@ ORDER BY yr desc, winner;
 ```
 
 14. Show the 1984 winners and subject ordered by subject and winner name; but list chemistry and physics last.
+
 ```sql
 SELECT winner, subject
 FROM nobel
@@ -534,3 +548,69 @@ ORDER BY subject IN ('physics','chemistry'), subject, winner;
 -- ORDER BY
 -- CASE WHEN subject IN ('physics', 'chemistry') THEN 1 ELSE 0 END, subject, winner;
 ```
+
+### SELECT from Nobel Quiz
+
+![Table for Nobel quiz](images/nobel-quiz-table.png)
+
+1. Pick the code which shows the name of winner's names beginning with C and ending in n.
+
+```sql
+SELECT winner FROM nobel
+WHERE winner LIKE 'C%' AND winner LIKE '%n'
+```
+
+2. Select the code that shows how many Chemistry awards were given between 1950 and 1960.
+
+```sql
+SELECT COUNT(subject) FROM nobel
+WHERE subject = 'Chemistry'
+AND yr BETWEEN 1950 and 1960
+```
+
+3. Pick the code that shows the amount of years where no Medicine awards were given.
+
+```sql
+SELECT COUNT(DISTINCT yr) FROM nobel
+WHERE yr NOT IN (SELECT DISTINCT yr FROM nobel WHERE subject = 'Medicine')
+```
+
+4. Select the result that would be obtained from the following code:
+
+```sql
+SELECT subject, winner FROM nobel WHERE winner LIKE 'Sir%' AND yr LIKE '196%'
+```
+
+![Table: Medicine winners Sir John Eccles and Sir Frank Macfarlane Burnet](images/nobel-quiz4.png)
+
+5. Select the code which would show the year when neither a Physics or Chemistry award was given.
+
+```sql
+SELECT yr FROM nobel
+WHERE yr NOT IN(SELECT yr
+				FROM nobel
+				WHERE subject IN ('Chemistry','Physics'))
+```
+
+6. Select the code which shows the years when a Medicine award was given but no Peace or Literature award was.
+
+```sql
+SELECT DISTINCT yr
+FROM nobel
+WHERE subject='Medicine'
+AND yr NOT IN(SELECT yr FROM nobel
+				WHERE subject='Literature')
+AND yr NOT IN (SELECT yr FROM nobel
+				WHERE subject='Peace')
+```
+
+7. Pick the result that would be obtained from the following code:
+
+```sql
+SELECT subject, COUNT(subject)
+FROM nobel
+WHERE yr ='1960'
+GROUP BY subject
+```
+
+![Table: Count of Chemistry (1), Literature (1), Medicine (2), Peace (1), Physics (1)](images/nobel-quiz7.png)
