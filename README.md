@@ -8,7 +8,7 @@ This README file shows the solutions to the [SQLZoo Tutorials](https://www.sqlzo
 1. [SELECT name](#1-select-name)
 2. [SELECT from World](#2-select-from-world)
 3. [SELECT from Nobel](#3-select-from-nobel)
-4. SELECT within SELECT
+4. [SELECT within SELECT](#4-select-in-select)
 5. SUM and COUNT
 6. JOIN
 7. More JOIN
