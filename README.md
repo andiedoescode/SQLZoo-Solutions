@@ -9,7 +9,7 @@ This README file shows the solutions to the [SQLZoo Tutorials](https://www.sqlzo
 2. [SELECT from World](#2-select-from-world)
 3. [SELECT from Nobel](#3-select-from-nobel)
 4. [SELECT within SELECT](#4-select-in-select)
-5. SUM and COUNT
+5. [SUM and COUNT](#5-sum-and-count)
 6. JOIN
 7. More JOIN
 8. Using Null
