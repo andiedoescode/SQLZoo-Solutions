@@ -15,7 +15,7 @@ This README file shows the solutions to the [SQLZoo Tutorials](https://www.sqlzo
 8. [Using Null](#8-using-null)
    - 8+. [Numeric Examples](#8-nss-tutorial-numeric-examples)
 9. Self join
-   - 9-. Window function
+   - [9-. Window function](#9--window-functions)
    - 9+. COVID 19 Example
 
 ## 0. SELECT basics
@@ -1634,6 +1634,7 @@ All these results are recorded in a table **ge**.
 ![Table for Window Functions](images/windowfxns.png)
 
 1. Show the lastName, party and votes for the constituency 'S14000024' in 2017.
+
 ```sql
 SELECT lastName, party, votes
 FROM ge
@@ -1642,6 +1643,7 @@ ORDER BY votes DESC;
 ```
 
 2. Show the party and RANK for constituency S14000024 in 2017. List the output by party. (You can use the RANK function to see the order of the candidates.)
+
 ```sql
 SELECT party, votes,
 	RANK() OVER (ORDER BY votes DESC) as posn
@@ -1651,6 +1653,7 @@ ORDER BY party;
 ```
 
 3. Use PARTITION to show the ranking of each party in S14000021 in each year. Include yr, party, votes and ranking (the party with the most votes is 1).
+
 ```sql
 SELECT yr, party, votes,
 	RANK() OVER (PARTITION BY yr ORDER BY votes DESC) as posn
@@ -1660,6 +1663,7 @@ ORDER BY party, yr;
 ```
 
 4. Use PARTITION BY constituency to show the ranking of each party in Edinburgh in 2017. Order your results so the winners are shown first, then ordered by constituency.
+
 ```sql
 SELECT constituency, party, votes,
 	RANK() OVER (PARTITION BY constituency ORDER BY votes DESC) as posn
@@ -1670,6 +1674,7 @@ ORDER BY posn, constituency;
 ```
 
 5. Show the parties that won for each Edinburgh constituency in 2017.
+
 ```sql
 SELECT constituency, party
 FROM (SELECT constituency, party, votes,
@@ -1682,6 +1687,7 @@ WHERE rank = 1
 ```
 
 6. Show how many seats for each party in Scotland in 2017.
+
 ```sql
 SELECT party, COUNT(*) AS 'Seats'
 FROM (SELECT constituency, party, votes,
